@@ -1,0 +1,163 @@
+1. Using repeated substitution on T(n) = 3T(n/4) + 4n
+
+The pattern:
+T(n) = 3T(n/4) + 4n
+T(n) = 3(3T(n/16) + n) + 4n = 9T(n/16) + 7n
+T(n) = 9(3T(n/64) + n/4) + 7n = 27T(n/64) + 9n/4 + 7n = 27T(n/64) + 37n/4
+Repeating we get T(n) = 3^iT(n/4^i) + 4n + n( 1 + 3/4 + 3^2/4^2 + ... 3^i-1/4^i-1).
+
+Let i = log4(n), thus we get:
+
+T(n) = 3^{log4(n)}T(n/4^{log4(n)}) + 4n + sum_{k = 0}^{log4(n) - 1}{(\frac{3}{4})^k}
+     = 3^{log4(n)}T(1) + 4n + n * sum_{k = 0}^{log4(n) - 1}{(\frac{3}{4})^k}
+     <= 3^{log4(n)}T(1) + 4n + n * sum_{k = 0}^{\infty}{(\frac{3}{4})^k}
+     = n^{log4(3)}T(1) + 4n + 3n
+     = T(n^{log4(3)}) + 7n <= O(n) + 7n = O(n)
+
+Thus, T(n) = O(n) time using repeated substitutions.
+
+Using the Master formula we have f(n) = 4n which implies d = 1.
+We also have a = 3 and b = 4.
+Notice that 3 < 4^1 so it falls into case: 1.
+Thus, T(n) = \theta(n).
+
+2. Master Theorem
+
+a) T(n) = 3T(n/5) + n^2
+
+a = 3, b = 5, f(n) = n^2 and d = 2.
+Notice that 3 < 5^2, so this falls into case: 1 and we get:
+T(n) = \theta(n^2)
+
+b) T(n) = 4T(n/3) + 7n
+
+a = 4, b = 3, f(n) = 7n and d = 1.
+Notice that 4 > 3^1 so this fails case: 1, but it passes case: 3.
+Thus, T(n) = \theta(n^{log3(4)})
+
+c) T(n) = 5T(n/4) + 10
+
+a = 5, b = 4, f(n) = 10 and d = 0.
+Notice that 5 > 4^0 so this falls into case: 3.
+Thus, by the master theorem T(n) = \theta(n^{log4(5)}).
+
+d) T(n) = 9T(n/3) + n^4
+
+a = 9, b = 3, f(n) = n^4 and d = 4.
+Notice that 9 < 3^4 so this falls into case: 1.
+Then, T(n) = \theta(n^4).
+
+e) T(n) = 6T(n/8) + n^3
+
+a = 6, b = 8, f(n) = n^3 and d = 3.
+Notice that 6 < 8^3 so this falls into case: 1.
+Then, T(n) = \theta(n^3) by the master theorem.
+
+3. Here is Radix Sort on the following items CAP, COL, USD, SUN, JPY, VEE, ROW, JOB,
+COX, LOL, RAT, WOW, DOD, CAR, FIG, PIG, VIS, LOW, LOX, VEA, CAD, DOG, TSL
+
+We have 26 different buckets. First we fidn the "largest" String, WOW, and then we check how many
+significant digits it has. They are all of size 3 so this step doesnt really matter. Now we place each of
+these Strings into a bucket based off of its "ones place" letter. As so:
+
+a VEA
+b JOB,
+c
+d USD, DOD, CAD
+e VEE,
+f
+g FIG, PIG, DOG
+h
+i
+j
+k
+l COL, LOL, TSL
+m
+n SUN,
+o
+p CAP
+q
+r CAR
+s
+t RAT,
+u
+v
+w ROW, WOW, LOW,
+x COX, LOX
+y
+z
+
+Now we place those back in order and get:
+
+VEA, JOB, USD, DOD, CAD, VEE, FIG, PIG, DOG, COL, LOL, TSL,
+SUN, CAP, CAR, RAT, ROW, WOW, LOW, COX, LOX
+
+Now we repeat but with the "tens place" to get:
+
+a CAD, CAP, CAR, RAT
+b
+c
+d
+e VEA, VEE
+f
+g
+h
+i FIG, PIG
+j
+k
+l
+m
+n
+o JOB, DOD, DOG, COL, LOL, ROW, WOW, LOW, COX, LOX
+p
+q
+r
+s USD, TSL
+t
+u SUN
+v
+w
+x
+y
+z
+
+CAD, CAP, CAR, RAT, VEA, VEE, FIG, PIG, JOB, DOD, DOG, COL, LOL, ROW, WOW, LOW, LOX,
+USD, TSl, SUN
+
+Now finally we repeat with the "hundreds place" and we get:
+
+a
+b
+c CAD, CAP, CAR, COL
+d DOD, DOG
+e
+f FIG
+g
+h
+i
+j JOB
+k
+l LOL, LOW, LOX
+m
+n
+o
+p PIG
+q
+r RAT, ROW,
+s SUN
+t TSL
+u USD
+v VEA, VEE
+w WOW,
+x
+y
+z
+
+Finally we have sorted them all to get:
+
+CAD, CAP CAR, COL, DOD, DOG, FIG, JOB, LOL, LOW, LOX, PIG, RAT, ROW, SUN,
+TSL, USD, VEA, VEE, WOW
+
+4.
+
+
