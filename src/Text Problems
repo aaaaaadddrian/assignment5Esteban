@@ -158,6 +158,23 @@ Finally we have sorted them all to get:
 CAD, CAP CAR, COL, DOD, DOG, FIG, JOB, LOL, LOW, LOX, PIG, RAT, ROW, SUN,
 TSL, USD, VEA, VEE, WOW
 
-4.
+Algorithm Analysis:
+
+Radix Sort:
+Radix sort is O(m * n) time where m is the max length of one of the strings and n is
+the number of strings in the array. Space complexity is O(n + k) where n is the size of the input and
+k is the number of buckets we need which in this case was 52. This is because we store all n elements in
+different buckets.
+
+PatterThing:
+PatternThing is O(n) time where n is the number of characters in the pattern. This is
+because we run through every character in the pattern, and at the same time every word
+in the String, exactly once. Space complexity is O(n) because we define a new array and some hashMaps
+which at very worst will each store n items. Thus it is O(3n) = O(n).
+
+ExtraCredit:
+ExtraCredit is in O(n) time even though it is a nested loop. This is because that inner loop will only run while the sum
+is greater than K and that at worst will wun a total of n-1 times through the entire for loop. Thus we are at O(n) time. The
+space complexity is O(1) because we create a constant number of variables and nothing else;
 
 
